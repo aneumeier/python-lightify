@@ -23,7 +23,6 @@
 
 import binascii
 import socket
-import sys
 import struct
 import logging
 

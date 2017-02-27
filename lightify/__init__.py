@@ -26,7 +26,7 @@ import socket
 import struct
 import logging
 
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 
 MODULE = __name__
 PORT = 4000
@@ -40,7 +40,16 @@ COMMAND_TEMP = 0x33
 COMMAND_COLOUR = 0x36
 COMMAND_LIGHT_STATUS = 0x68
 
-# Commands
+MAX_TEMPERATURE = 8000
+MIN_TEMPERATURE = 2000
+MAX_LUMINANCE = 100
+MAX_RGB = 255
+    
+ 
+"""
+Commands
+========
+
 # 13 all light status (returns list of light address, light status, light name)
 # 1e group list (returns list of group id, and group name)
 # 26 group status (returns group id, group name, and list of light addresses)
@@ -49,7 +58,7 @@ COMMAND_LIGHT_STATUS = 0x68
 # 33 set group temp
 # 36 set group colour
 # 68 light status (returns light address and light status (?))
-
+"""
 
 class Luminary(object):
     def __init__(self, conn, logger, name):
@@ -66,17 +75,25 @@ class Luminary(object):
         self.__conn.recv()
 
     def set_luminance(self, lum, time):
-        data = self.__conn.build_luminance(self, lum, time)
+        data = self.__conn.build_luminance(self, min(MAX_LUM, lum), time)
         self.__conn.send(data)
         self.__conn.recv()
 
     def set_temperature(self, temp, time):
-        data = self.__conn.build_temp(self, temp, time)
+        t = min(MAX_TEMPERATURE, temp)
+        t = max(MIN_TEMPERATURE, t)
+        data = self.__conn.build_temp(self, t, time)
         self.__conn.send(data)
         self.__conn.recv()
 
     def set_rgb(self, r, g, b, time):
-        data = self.__conn.build_colour(self, r, g, b, time)
+        data = self.__conn.build_colour(
+            self, 
+            min(MAX_RGB, r), 
+            min(MAX_RGB, g), 
+            min(MAX_RGB, b), 
+            time
+        )
         self.__conn.send(data)
         self.__conn.recv()
 

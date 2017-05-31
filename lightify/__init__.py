@@ -233,7 +233,7 @@ class Lightify:
 
     def next_seq(self):
         self.__seq = self.__seq + 1
-        return self.__seq
+        return self.__seq % 256
 
     def build_global_command(self, command, data):
         length = 6 + len(data)

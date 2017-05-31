@@ -44,8 +44,8 @@ MAX_TEMPERATURE = 8000
 MIN_TEMPERATURE = 2000
 MAX_LUMINANCE = 100
 MAX_RGB = 255
-    
- 
+
+
 """
 Commands
 ========
@@ -88,10 +88,10 @@ class Luminary(object):
 
     def set_rgb(self, r, g, b, time):
         data = self.__conn.build_colour(
-            self, 
-            min(MAX_RGB, r), 
-            min(MAX_RGB, g), 
-            min(MAX_RGB, b), 
+            self,
+            min(MAX_RGB, r),
+            min(MAX_RGB, g),
+            min(MAX_RGB, b),
             time
         )
         self.__conn.send(data)

@@ -1,6 +1,10 @@
 python-lightify
 ===============
 
+UNMAINTAINED.
+
+Please see the new repository_ maintained by tfriedel.
+
 Python module for OSRAM_ Lightify_
 Based on work from Mikael Magnusson. (Github: mikma_)
 
@@ -33,6 +37,7 @@ Turn on all lights connected to the gateway.
     lights[light].set_onoff(True)
 ```
 
+.. _repository: https://github.com/tfriedel/python-lightify
 .. _OSRAM: http://www.osram.com
 .. _Lightify: http://led.osram.de/lightify
 .. _pypi: https://pypi.python.org/pypi/lightify/
